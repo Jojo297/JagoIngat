@@ -1,7 +1,7 @@
 // Card.js
 import React from "react";
 
-const Card = ({ color, isFlipped, onClick, cardIndex }) => {
+const CardButton = ({ color, isFlipped, onClick, cardIndex, isPlayerTurn }) => {
   // Tentukan warna yang ditampilkan. Jika isFlipped true, gunakan warna dari prop.
   // Jika tidak, gunakan warna abu-abu.
   const displayColor = isFlipped ? color : "bg-gray-500";
@@ -9,10 +9,11 @@ const Card = ({ color, isFlipped, onClick, cardIndex }) => {
   return (
     <div
       className={`w-24 h-24 rounded-lg cursor-pointer transition-colors duration-300 ${displayColor}`}
-      onClick={() => onClick(cardIndex)}>
+      onClick={() => onClick(cardIndex)}
+      disabled={isPlayerTurn}>
       {/* Kartu kosong, warnanya ditentukan oleh CSS */}
     </div>
   );
 };
 
-export default Card;
+export default CardButton;

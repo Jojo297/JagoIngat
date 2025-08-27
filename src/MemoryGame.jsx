@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import Card from "./CardButton";
+import { Card } from "@/components/ui/card";
+import CardButton from "./CardButton";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const colors = [
   "bg-red-500",
@@ -18,7 +29,19 @@ const MemoryGame = () => {
   const [playerClicks, setPlayerClicks] = useState([]);
   const [score, setScore] = useState(0);
   const [isPlayerTurn, setIsPlayerTurn] = useState(false);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [level, setLevel] = useState(1);
   const [gameOver, setGameOver] = useState(false);
+  const handleCloseDialog = () => {
+    setGameOver(false);
+    setSequence([]);
+    setPlayerClicks([]);
+    setScore(0);
+    setLevel(1);
+    const resetCards = cards.map((card) => ({ ...card, isFlipped: false }));
+    setCards(resetCards);
+    setIsPlayerTurn(false);
+  };
 
   const [cards, setCards] = useState(
     colors.map((color, index) => ({
@@ -30,7 +53,9 @@ const MemoryGame = () => {
   );
 
   const startGame = () => {
+    setIsGameStarted(true);
     setScore(0);
+    setLevel(1);
     setGameOver(false);
     setPlayerClicks([]);
     const resetCards = cards.map((card) => ({ ...card, isFlipped: false }));
@@ -78,12 +103,10 @@ const MemoryGame = () => {
   const handleCardClick = (clickedCardIndex) => {
     if (!isPlayerTurn || gameOver) return;
 
-    // 1. Tampilkan warna kartu yang diklik
     const updatedCards = [...cards];
     updatedCards[clickedCardIndex].isFlipped = true;
     setCards(updatedCards);
 
-    // 2. Sembunyikan kembali warna kartu setelah 500ms
     setTimeout(() => {
       const resetCard = [...cards];
       resetCard[clickedCardIndex].isFlipped = false;
@@ -93,10 +116,10 @@ const MemoryGame = () => {
     const newPlayerClicks = [...playerClicks, clickedCardIndex];
     setPlayerClicks(newPlayerClicks);
 
-    // Cek apakah klik pemain benar
     if (sequence[newPlayerClicks.length - 1] === clickedCardIndex) {
       if (newPlayerClicks.length === sequence.length) {
-        setScore(score + 1);
+        setScore(score + 5);
+        setLevel(level + 1);
         setPlayerClicks([]);
         setTimeout(() => {
           const resetCards = cards.map((card) => ({
@@ -113,56 +136,79 @@ const MemoryGame = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-x-10 items-center">
-      <div className="grid grid-cols-3 gap-4 mt-6 ">
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            color={card.color}
-            isFlipped={card.isFlipped}
-            cardIndex={index}
-            onClick={handleCardClick}
-          />
-        ))}
-      </div>
-
-      <div className="flex-col text-center">
-        {/* Tombol "Mulai Game" hanya akan muncul jika game belum dimulai (sequence kosong) */}
-        {sequence.length === 0 && !gameOver && (
-          <button
-            className="bg-blue-600 mr-4 hover:bg-blue-700  text-white font-bold py-2 px-6 rounded-lg shadow-md transition-colors"
-            onClick={startGame}>
-            Mulai Game
-          </button>
-        )}
-
-        {/* Pesan status dan tombol "Main Lagi" */}
-
-        <div className="gap-4">
-          {gameOver ? (
+    <div className="flex flex-col justify-center">
+      <div className="flex-col self-center items-center justify-center text-center">
+        <div className="flex space-x-4 justify-center">
+          <Card className="mt-4 mb-4 px-6 py-4 text-center border-2 rounded-lg border-primary/20 bg-card/50 backdrop-blur-sm">
             <div>
-              <h2 className="mt-4 text-2xl text-red-600 font-bold">
-                Game Over! Skor: {score}
-              </h2>
-              <button
-                className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-colors"
-                onClick={startGame}>
-                Main Lagi
-              </button>
+              <div className="text-2xl font-bold text-primary">{score}</div>
+              <div className="text-sm text-muted-foreground">Skor</div>
             </div>
-          ) : (
-            // Pesan status hanya akan muncul jika game sedang berjalan
-            sequence.length > 0 && (
-              <h2 className="mt-4 text-xl dark:text-white">
-                {isPlayerTurn ? "Giliran Anda!" : "Perhatikan Urutan..."}
-              </h2>
-            )
-          )}
-        </div>
-        <div className="mt-4 text-xl  dark:text-white font-semibold">
-          Skor: {score}
+          </Card>
+          <Card className="mt-4 mb-4 px-6 py-4 text-center border-2 rounded-lg border-primary/20 bg-card/50 backdrop-blur-sm">
+            <div>
+              <div className="text-2xl font-bold text-primary">{level}</div>
+              <div className="text-sm text-muted-foreground">Level</div>
+            </div>
+          </Card>
         </div>
       </div>
+
+      <div className="gap-4">
+        {!isGameStarted
+          ? null
+          : sequence.length > 0 && (
+              <h2 className="mt-4 mb-2 text-xl text-center dark:text-white">
+                {isPlayerTurn ? "Giliran Anda!" : "Perhatikan Urutan.."}
+              </h2>
+            )}
+      </div>
+
+      <Card className="p-8 border-2 border-border/20 bg-card/80 backdrop-blur-sm shadow-2xl">
+        {" "}
+        <div className="grid grid-cols-3 gap-4 p-4">
+          {cards.map((card, index) => (
+            <CardButton
+              key={index}
+              color={card.color}
+              isFlipped={card.isFlipped}
+              cardIndex={index}
+              isPlayerTurn={isPlayerTurn}
+              onClick={handleCardClick}
+            />
+          ))}
+        </div>
+      </Card>
+
+      {sequence.length === 0 && !gameOver && (
+        <button
+          className="bg-primary mt-4  hover:shadow-xl hover:bg-primary/90 transition-all duration-200 transform hover:scale-105  text-white font-bold py-2 px-6 rounded-lg shadow-md "
+          onClick={startGame}>
+          Mulai Game
+        </button>
+      )}
+
+      <AlertDialog open={gameOver}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="mt-4 text-2xl text-center text-red-600 font-bold">
+              {" "}
+              Game Over! Skor: {score}
+            </AlertDialogTitle>
+            <AlertDialogDescription></AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleCloseDialog}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className=" text-white font-bold py-2 px-6 rounded-lg shadow-md transition-colors"
+              onClick={startGame}>
+              Main Lagi
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
