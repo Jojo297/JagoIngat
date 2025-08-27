@@ -8,12 +8,8 @@ export default function App() {
         {/* Header */}
         <LogoJagoIngat />
         <div className="text-center ">
-          {/* <h1 className="font-heading text-4xl md:text-6xl font-bold text-primary text-balance">
-            JagoIngat
-          </h1> */}
-
           <p className="text-muted-foreground text-lg text-pretty">
-            Watch the pattern, then repeat it back. How far can you go?
+            Perhatikan polanya, lalu ulangi. Seberapa jauh Anda bisa melangkah?
           </p>
         </div>
         <MemoryGame />
