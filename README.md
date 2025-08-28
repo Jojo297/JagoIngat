@@ -34,49 +34,6 @@ tailwindcss-animate: ^1.0.7
 - **lint**: `npm run lint`
 - **preview**: `npm run preview`
 
-
-## 📁 Project Structure
-
-```
-.
-├── components.json
-├── eslint.config.js
-├── index.html
-├── jsconfig.json
-├── package.json
-├── postcss.config.js
-├── public
-│   └── vite.svg
-├── src
-│   ├── App.jsx
-│   ├── CardButton.jsx
-│   ├── MemoryGame.jsx
-│   ├── assets
-│   │   ├── GameOver.jpg
-│   │   ├── GoodJob.jpg
-│   │   ├── JagoIngatLogo.png
-│   │   ├── JagoIngatLogo1.png
-│   │   ├── JagoIngatLogo2.png
-│   │   └── react.svg
-│   ├── components
-│   │   ├── GameOver.jsx
-│   │   ├── LogoJagoIngat.jsx
-│   │   ├── mode-toogle.jsx
-│   │   ├── theme-provider.jsx
-│   │   └── ui
-│   │       ├── alert-dialog.jsx
-│   │       ├── button.jsx
-│   │       ├── card.jsx
-│   │       ├── dialog.jsx
-│   │       └── dropdown-menu.jsx
-│   ├── index.css
-│   ├── lib
-│   │   └── utils.js
-│   └── main.jsx
-├── tailwind.config.js
-└── vite.config.js
-```
-
 ## 🛠️ Development Setup
 
 ### Node.js/JavaScript Setup
