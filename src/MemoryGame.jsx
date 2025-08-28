@@ -173,7 +173,7 @@ const MemoryGame = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center lg:flex-row lg:gap-16 lg:w-full lg:px-36">
+    <div className="flex flex-col p-4 justify-center lg:flex-row lg:gap-16 lg:w-full lg:px-36">
       <div className="flex-col w-full self-center items-center justify-center text-center">
         {bestScore > 0 ? (
           <Card className="w-full mt-2 px-6 py-4 text-center border-2 rounded-lg border-primary/20 bg-card/50 backdrop-blur-sm">
@@ -221,7 +221,7 @@ const MemoryGame = () => {
                 </h2>
               )}
         </div>
-        <Card className="p-6 border-2 border-border/20 bg-card/80 backdrop-blur-sm shadow-2xl lg:p-4 lg:justify-center ">
+        <Card className=" border-2 border-border/20 bg-card/80 backdrop-blur-sm shadow-2xl lg:p-4 lg:justify-center ">
           <div className="grid grid-cols-3 gap-4 p-4 lg:p-4 lg:gap-4 lg:place-items-center">
             {cards.map((card, index) => (
               <CardButton
