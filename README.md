@@ -1,6 +1,6 @@
 # JagoIngat
 
-![React](https://img.shields.io/badge/-React-blue?logo=react&logoColor=white)
+![Banner](src/assets/banner1.png)
 
 ## 📝 Description
 
