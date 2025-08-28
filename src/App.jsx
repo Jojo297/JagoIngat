@@ -3,9 +3,8 @@ import LogoJagoIngat from "./components/LogoJagoIngat";
 
 export default function App() {
   return (
-    <div className="py-4">
+    <div className="lg:mt-8">
       <div className="flex flex-col justify-center items-center ">
-        {/* Header */}
         <LogoJagoIngat />
         <div className="text-center ">
           <p className="text-muted-foreground text-lg text-pretty">
