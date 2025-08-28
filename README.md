@@ -1,6 +1,6 @@
 # JagoIngat
 
-![Banner](src/assets/banner1.png)
+![Banner](src/assets/Banner1.png)
 
 ## 📝 Description
 
