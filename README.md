@@ -1,4 +1,4 @@
-# JagoIngat
+#🧠JagoIngat
 
 ![Banner](src/assets/Banner1.png)
 
